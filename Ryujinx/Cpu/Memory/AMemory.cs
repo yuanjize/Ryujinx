@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 
 namespace ChocolArm64.Memory
-{
+{   //内存管理器，负责分配和读写指定的内存
     public unsafe class AMemory
     {
-        public AMemoryMgr Manager { get; private set; }
+        public AMemoryMgr Manager { get; private set; } //内存管理器
 
         private struct ExMonitor
         {
@@ -31,11 +31,11 @@ namespace ChocolArm64.Memory
             }
         }
 
-        private Dictionary<int, ExMonitor> Monitors;
+        private Dictionary<int, ExMonitor> Monitors; //看起来是内存互斥锁
 
         private HashSet<long> ExAddrs;
 
-        private byte* RamPtr;
+        private byte* RamPtr;  // 虚拟机物理内存初始地址
 
         public AMemory(IntPtr Ram, AMemoryAlloc Allocator)
         {
@@ -100,7 +100,7 @@ namespace ChocolArm64.Memory
                 }
             }
         }
-
+        // 下面函数都是从物理内存读写数据
         public sbyte ReadSByte(long Position) => (sbyte)ReadByte  (Position);
         public short ReadInt16(long Position) => (short)ReadUInt16(Position);
         public int   ReadInt32(long Position) =>   (int)ReadUInt32(Position);
@@ -228,7 +228,7 @@ namespace ChocolArm64.Memory
             WriteUInt64(Position + 0, Value.X0);
             WriteUInt64(Position + 8, Value.X1);
         }
-
+        //在对应的位置写入N个字节是都会跨页面
         private bool IsPageCrossed(long Position, int Size)
         {
             return (Position & AMemoryMgr.PageMask) + Size > AMemoryMgr.PageSize;

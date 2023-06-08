@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-
+// 一种文件格式不用管，知道接口就行
 namespace Ryujinx.Loaders.Executables
 {
     class Nro : IElf

@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 
 namespace ChocolArm64.Decoder
-{
+{   //一个代码块
     class ABlock
     {
-        public long Position    { get; set; }
-        public long EndPosition { get; set; }       
+        public long Position    { get; set; } //代码块起始地址
+        public long EndPosition { get; set; } //代码块结束地址      
 
-        public ABlock Next   { get; set; }
-        public ABlock Branch { get; set; }
+        public ABlock Next   { get; set; } // 没有跳转，或者bl跳转执行结束，要执行的代码块
+        public ABlock Branch { get; set; } // 跳转的目的代码块
 
-        public List<AOpCode> OpCodes { get; private set; }
+        public List<AOpCode> OpCodes { get; private set; } //代码块里面的opcode
 
         public ABlock()
         {
@@ -21,7 +21,7 @@ namespace ChocolArm64.Decoder
         {
             this.Position = Position;
         }
-
+        //获取代码块的最后一个指令
         public AOpCode GetLastOp()
         {
             if (OpCodes.Count > 0)

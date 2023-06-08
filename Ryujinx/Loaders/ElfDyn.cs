@@ -1,5 +1,5 @@
 namespace Ryujinx.Loaders
-{
+{   //dynamic段 https://ctf-wiki.org/executable/elf/structure/dynamic-sections/
     struct ElfDyn
     {
         public ElfDynTag Tag { get; private set; }

@@ -2,17 +2,17 @@ using System;
 using System.Reflection;
 
 namespace ChocolArm64.State
-{
+{   //通过反射，拿到指定寄存器的原信息
     struct ARegister
     {
-        public int Index;
+        public int Index;//flag位置/通用寄存器索引/SIMD寄存器索引
 
-        public ARegisterType Type;
+        public ARegisterType Type;//状态寄存器/通用寄存器/SIMD寄存器
 
         public ARegister(int Index, ARegisterType Type)
         {
             this.Index = Index;
-            this.Type  = Type;
+            this.Type  = Type; 
         }
 
         public override int GetHashCode()
@@ -26,7 +26,7 @@ namespace ChocolArm64.State
                    Reg.Index == Index &&
                    Reg.Type  == Type;
         }
-
+        // 通过反射拿到寄存器字段的元信息
         public FieldInfo GetField()
         {
             switch (Type)

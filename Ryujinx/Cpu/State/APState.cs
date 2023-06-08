@@ -1,7 +1,7 @@
 using System;
 
 namespace ChocolArm64.State
-{
+{   // 程序状态寄存器的位索引
     [Flags]
     public enum APState
     {

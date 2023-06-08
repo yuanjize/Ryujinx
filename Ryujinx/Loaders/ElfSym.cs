@@ -1,5 +1,5 @@
 namespace Ryujinx.Loaders
-{
+{  // 存储符号信息
     struct ElfSym
     {
         public string Name { get; private set; }

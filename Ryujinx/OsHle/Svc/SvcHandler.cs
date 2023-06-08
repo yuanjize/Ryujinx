@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Ryujinx.OsHle.Svc
-{
+{  // 注册一堆系统调用
     partial class SvcHandler
     {
         private delegate void SvcFunc(Switch Ns, ARegisters Registers, AMemory Memory);

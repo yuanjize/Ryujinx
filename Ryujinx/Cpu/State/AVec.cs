@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
-
+// 浮点运算SIMD寄存器，这个class一共16字节大小
+// FieldOffset用法相当于C语言的UNION，包括对这些寄存器的读写操作
 namespace ChocolArm64.State
 {
     [StructLayout(LayoutKind.Explicit, Size = 16)]

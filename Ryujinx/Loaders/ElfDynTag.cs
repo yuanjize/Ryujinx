@@ -1,5 +1,5 @@
 namespace Ryujinx.Loaders
-{
+{   //dynamic 的tag 枚举值https://ctf-wiki.org/executable/elf/structure/dynamic-sections/
     enum ElfDynTag
     {
         DT_NULL            = 0,

@@ -59,7 +59,7 @@ namespace ChocolArm64.Memory
                 return Encoding.ASCII.GetString(MS.ToArray());
             }
         }
-
+        // 页向上取整对齐,就是把页的1后面全为0的位干掉，只生效高位就是页的倍数了
         public static long PageRoundUp(long Value)
         {
             return (Value + AMemoryMgr.PageMask) & ~AMemoryMgr.PageMask;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+// 用来生成id
 namespace Ryujinx.OsHle.Utilities
 {
     class IdPool

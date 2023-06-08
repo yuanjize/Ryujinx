@@ -2,6 +2,7 @@ using System;
 
 namespace ChocolArm64.Memory
 {
+    // 内存区域的权限
     [Flags]
     public enum AMemoryPerm
     {

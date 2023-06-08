@@ -1,5 +1,5 @@
 namespace ChocolArm64.State
-{
+{   //寄存器大小
     enum ARegisterSize
     {
         Int32,

@@ -1,3 +1,4 @@
+//重定位类型枚举 https://www.jianshu.com/p/2055bd794e58
 namespace Ryujinx.Loaders
 {
     enum ElfRelType

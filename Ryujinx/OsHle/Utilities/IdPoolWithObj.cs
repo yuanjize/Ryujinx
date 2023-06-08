@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+// 就是KV，KV是用idpool生成的id，value是object
 namespace Ryujinx.OsHle.Utilities
 {
     class IdPoolWithObj : IEnumerable<KeyValuePair<int, object>>

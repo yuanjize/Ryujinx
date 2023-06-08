@@ -1,5 +1,5 @@
 namespace Ryujinx.Loaders
-{
+{   //重定位数据
     struct ElfRel
     {
         public long Offset { get; private set; }

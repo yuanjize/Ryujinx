@@ -1,6 +1,6 @@
 using ChocolArm64.Instruction;
 using System;
-
+// https://segmentfault.com/a/1190000041573395
 namespace ChocolArm64.Decoder
 {
     class AOpCodeAluImm : AOpCodeAlu, IAOpCodeAluImm

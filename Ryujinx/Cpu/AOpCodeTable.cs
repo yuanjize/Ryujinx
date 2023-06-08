@@ -1,7 +1,8 @@
 using ChocolArm64.Decoder;
 using ChocolArm64.Instruction;
 using System;
-
+// 指令编码文件https://developer.arm.com/documentation/ddi0596/2021-12/Index-by-Encoding/Data-Processing----Immediate
+// 存储了指令二进制编码到对应指令的映射表
 namespace ChocolArm64
 {
     static class AOpCodeTable
@@ -238,16 +239,16 @@ namespace ChocolArm64
             Set("0x001110<<100001001010xxxxxxxxxx", AInstEmit.Xtn_V,         typeof(AOpCodeSimd));
 #endregion
         }
-
+        // 链表，存贮了指令编码到指令的映射
         private class TreeNode
         {
-            public int Mask;
-            public int Value;
+            public int Mask; //指令二进制掩码，和指令二进制&之后得到指令的编码
+            public int Value; //指令编码
 
             public TreeNode Next;
             public TreeNode Child;
 
-            public AInst Inst;
+            public AInst Inst; // 指令
 
             public TreeNode(int Mask, int Value, AInst Inst)
             {
@@ -258,12 +259,12 @@ namespace ChocolArm64
         }
 
         private static TreeNode Root;
-
+        // 编码和指令的映射存到列表中
         private static void Set(string Encoding, AInstEmitter Emitter, Type Type)
         {
             Set(Encoding, new AInst(Emitter, Type));
         }
-
+        // 编码和指令的映射存到列表中
         private static void Set(string Encoding, AInst Inst)
         {
             int Bit    = Encoding.Length - 1;
@@ -274,7 +275,10 @@ namespace ChocolArm64
 
             int[] ZPos = new int[Encoding.Length];
             int[] OPos = new int[Encoding.Length];
-
+            // 在最终的mask中：值为x的地方为0，非x的地方为1
+            // 在value中：x和0的地方都是0，1的地方是1
+            //对于<<代表两位二进制中除了11之外的三个值的集合
+            //对于>> 代表两位二进制中除了00之外的三个值的集合
             for (int Index = 0; Index < Encoding.Length; Index++, Bit--)
             {
                 //Note: < and > are used on special encodings.
@@ -295,11 +299,12 @@ namespace ChocolArm64
                     default: throw new ArgumentException(nameof(Encoding));
                 }
             }
-
+            // 没有<<和>>所以不用展开集合
             if (ZCount + OCount == 0)
             {
                 InsertTop(XMask, Value, Inst);
             }
+            // 没有<<和>>所以不用展开集合
             else if ((ZCount & OCount) != 0)
             {
                 for (int OCtr = 0; (uint)OCtr < (1 << OCount) - 1; OCtr++)
@@ -313,17 +318,17 @@ namespace ChocolArm64
 
                     InsertWithCtr(1, 1 << ZCount, ZCount, ZPos, XMask, OVal, Inst);
                 }
-            }
+            }// 展开<集合
             else if (ZCount != 0)
             {
                 InsertWithCtr(1,  1 << ZCount,      ZCount, ZPos, XMask, Value, Inst);
-            }
+            }// 展开>集合
             else if (OCount != 0)
             {
                 InsertWithCtr(0, (1 << OCount) - 1, OCount, OPos, XMask, Value, Inst);
             }
         }
-
+        // 展开<和>代表的集合
         private static void InsertWithCtr(
             int   Start,
             int   End,
@@ -354,7 +359,7 @@ namespace ChocolArm64
 
             Root.Next = Next;
         }
-
+        //根据指令码找到对应的指令
         public static AInst GetInst(int OpCode)
         {
             TreeNode Node = Root;

@@ -3,7 +3,7 @@ using ChocolArm64.State;
 using Ryujinx.OsHle.Handles;
 
 namespace Ryujinx.OsHle.Svc
-{
+{   //实现了内存相关的系统调用
     partial class SvcHandler
     {
         private static void SvcSetHeapSize(Switch Ns, ARegisters Registers, AMemory Memory)
