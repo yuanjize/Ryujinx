@@ -8,6 +8,7 @@ namespace ChocolArm64.Decoder
 {
     static class ADecoder
     {
+        // 对代码进行分块，然后按照所在地址进行排序放到Graph中，Root是代码的起始地址
         public static (ABlock[] Graph, ABlock Root) DecodeSubroutine(ATranslator Translator, long Start)
         {
             Dictionary<long, ABlock> Visited    = new Dictionary<long, ABlock>(); //遍历过的块
@@ -96,7 +97,7 @@ namespace ChocolArm64.Decoder
 
                 VisitedEnd.Add(Current.EndPosition, Current);
             }
-
+            // 按照块的地址进行排序，放到Graph中
             //Make and sort Graph blocks array by position.
             ABlock[] Graph = new ABlock[Visited.Count];
 

@@ -64,7 +64,7 @@ namespace ChocolArm64
         }
 
         private ATranslatedSub TranslateSubroutine(long Position)
-        {
+        {   // 对代码进行分块,Root是所有块的起始地址。
             (ABlock[] Graph, ABlock Root) Cfg = ADecoder.DecodeSubroutine(this, Position);
 
             AILEmitterCtx Context = new AILEmitterCtx(
